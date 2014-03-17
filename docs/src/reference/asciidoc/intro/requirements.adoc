@@ -10,7 +10,7 @@ TIP: {eh} adds no extra requirements to Hadoop (or the various libraries built o
 [[requirements-jdk]]
 === JDK
 
-JDK level 6.0 (or above) just like Hadoop. We strongly recommend using the latest stable JDK 6.0 (such as version 25) or if possible, JDK 7.0 - currently update u51.
+JDK level 6.0 (or above) just like Hadoop. We strongly recommend using the latest stable JDK 6.0 (such as version 45) or if possible JDK 7.0 update 25 (other version have a bug that affects Apache Lucene and we do not recommend them).
 
 One can check the available JDK version from the command line:
 
