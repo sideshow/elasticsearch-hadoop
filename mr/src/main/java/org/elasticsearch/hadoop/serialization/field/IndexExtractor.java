@@ -16,15 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.elasticsearch.hadoop.serialization;
+package org.elasticsearch.hadoop.serialization.field;
 
-import org.elasticsearch.hadoop.serialization.field.ConstantFieldExtractor;
-import org.elasticsearch.hadoop.util.ObjectUtils;
 
-public class DefaultIndexFormat extends AbstractIndexFormat {
 
-    protected Object createFieldExtractor(String fieldName) {
-        settings.setProperty(ConstantFieldExtractor.PROPERTY, fieldName);
-        return ObjectUtils.instantiate(settings.getMappingDefaultClassExtractor(), settings);
-    }
+/**
+ * Produces an index name based on the given pattern and arguments (field values).
+ */
+public interface IndexExtractor extends FieldExtractor {
+
+    void compile(String pattern);
+
+    /**
+     * Indicates whether the given string is a pattern or not.
+     *
+     * @return true for a pattern, false otherwise
+     */
+    boolean hasPattern();
 }

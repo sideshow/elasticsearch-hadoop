@@ -16,22 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.elasticsearch.hadoop.serialization;
+package org.elasticsearch.hadoop.serialization.field;
 
-import org.elasticsearch.hadoop.serialization.field.FieldExtractor;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.xml.bind.DatatypeConverter;
 
 
-/**
- * Produces an index name based on the given pattern and arguments (field values).
- */
-public interface IndexFormat extends FieldExtractor {
+public class DateIndexFormatter implements IndexFormatter {
 
-    void compile(String pattern);
+    private String format;
+    private SimpleDateFormat dateFormat;
 
-    /**
-     * Indicates whether the given string is a pattern or not.
-     *
-     * @return true for a pattern, false otherwise
-     */
-    boolean hasPattern();
+    @Override
+    public void configure(String format) {
+        this.format = format;
+        this.dateFormat = new SimpleDateFormat(format);
+    }
+
+    @Override
+    public String format(String value) {
+        Calendar calendar = DatatypeConverter.parseDateTime(value);
+        return dateFormat.format(calendar.getTime());
+    }
 }
