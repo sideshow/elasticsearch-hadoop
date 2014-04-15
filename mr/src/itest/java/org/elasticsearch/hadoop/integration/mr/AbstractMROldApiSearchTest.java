@@ -125,6 +125,12 @@ public class AbstractMROldApiSearchTest {
         Assert.assertTrue(RestUtils.exists("mroldapi/pattern-990"));
     }
 
+    @Test
+    public void testDynamicPatternWithFormat() throws Exception {
+        Assert.assertTrue(RestUtils.exists("mroldapi/pattern-format-2936-10-06"));
+        Assert.assertTrue(RestUtils.exists("mroldapi/pattern-format-2051-10-06"));
+        Assert.assertTrue(RestUtils.exists("mroldapi/pattern-format-2345-10-06"));
+    }
 
     //@Test
     public void testNested() throws Exception {

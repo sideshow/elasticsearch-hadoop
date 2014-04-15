@@ -42,7 +42,7 @@ public class JsonFieldExtractors {
     private String[] paths;
 
     private FieldExtractor id, parent, routing, ttl, version, timestamp;
-    private IndexExtractor indexExtractor;
+    private AbstractIndexExtractor indexExtractor;
 
     class PrecomputedFieldExtractor implements FieldExtractor {
 
@@ -88,6 +88,8 @@ public class JsonFieldExtractors {
                 return createJsonFieldExtractor(fieldName, jsonPaths);
             }
         };
+        indexExtractor.setSettings(settings);
+
         indexExtractor.compile(new Resource(settings, false).toString());
 
         // if there's no pattern, simply remove it

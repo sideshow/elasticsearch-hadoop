@@ -26,6 +26,7 @@ import org.elasticsearch.hadoop.cfg.Settings;
 import org.elasticsearch.hadoop.serialization.SettingsAware;
 import org.elasticsearch.hadoop.util.Assert;
 import org.elasticsearch.hadoop.util.ObjectUtils;
+import org.elasticsearch.hadoop.util.StringUtils;
 
 
 
@@ -68,8 +69,8 @@ public abstract class AbstractIndexExtractor implements IndexExtractor, Settings
             int separator = nestedString.indexOf(":");
             if (separator > 0) {
                 Assert.isTrue(nestedString.length() > separator + 1, "Invalid format given " + nestedString);
-                nestedString = nestedString.substring(0, separator);
                 String format = nestedString.substring(separator + 1);
+                nestedString = nestedString.substring(0, separator);
                 template.add(wrapWithFormatter(format, createFieldExtractor(nestedString)));
             }
             else {
@@ -77,7 +78,9 @@ public abstract class AbstractIndexExtractor implements IndexExtractor, Settings
             }
             string = string.substring(endPattern + 1).trim();
         }
-        template.add(string);
+        if (StringUtils.hasText(string)) {
+            template.add(string);
+        }
         return template;
     }
 

@@ -16,19 +16,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.elasticsearch.hadoop.integration.cascading;
+package org.elasticsearch.hadoop.serialization.field;
 
-import org.elasticsearch.hadoop.LocalEs;
-import org.junit.ClassRule;
-import org.junit.rules.ExternalResource;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.Test;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ AbstractCascadingLocalJsonSaveTest.class, AbstractCascadingLocalSaveTest.class, AbstractCascadingLocalJsonSearchTest.class, AbstractCascadingLocalSearchTest.class })
-//@Suite.SuiteClasses({ AbstractCascadingLocalSaveTest.class, AbstractCascadingLocalSearchTest.class })
-public class CascadingLocalSuite {
+import static org.junit.Assert.*;
 
-    @ClassRule
-    public static ExternalResource resource = new LocalEs();
+import static org.hamcrest.Matchers.*;
+
+public class DateIndexFormatterTest {
+
+    private IndexFormatter formatter = new DateIndexFormatter();
+
+    @Test
+    public void testTimeYMDFormat() {
+        formatter.configure("YYYY.MM.dd");
+        assertThat(formatter.format("2014-10-06T19:20:25.000Z"), is("2014.10.06"));
+    }
+
+    @Test
+    public void testTimeYMFormat() {
+        formatter.configure("YYYY-MM");
+        assertThat(formatter.format("2014-10-06T19:20:25.000Z"), is("2014-10"));
+    }
+
+    @Test
+    public void testDateAndTimezone() {
+        formatter.configure("MM-dd");
+        assertThat(formatter.format("1969-08-20"), is("08-20"));
+    }
 }

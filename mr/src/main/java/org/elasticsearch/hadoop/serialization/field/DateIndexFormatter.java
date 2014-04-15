@@ -23,6 +23,8 @@ import java.util.Calendar;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.elasticsearch.hadoop.util.StringUtils;
+
 
 public class DateIndexFormatter implements IndexFormatter {
 
@@ -37,6 +39,10 @@ public class DateIndexFormatter implements IndexFormatter {
 
     @Override
     public String format(String value) {
+        if (!StringUtils.hasText(value)) {
+            return null;
+        }
+
         Calendar calendar = DatatypeConverter.parseDateTime(value);
         return dateFormat.format(calendar.getTime());
     }
