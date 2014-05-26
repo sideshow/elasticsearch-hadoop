@@ -95,7 +95,7 @@ STORE B INTO  '...' USING org.elasticsearch.hadoop.pig.EsStorage(
 
 <1> name mapping for two fields
 <2> Pig column `date` mapped in {es} to `@timestamp`
-<3> Pig column `url` mapped in {es} to `url_123`
+<3> Pig column `uRL` mapped in {es} to `url`
 
 TIP: {es} accepts only lower-case field name and, as such, {eh} will always convert Pig column names to lower-case. Because Pig is **case sensitive**, {eh} handles the reverse
 field mapping as well. It is recommended to use the default Pig style and use upper-case names only for commands and avoid mixed-case names.
